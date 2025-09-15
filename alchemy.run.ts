@@ -1,5 +1,5 @@
 import alchemy from "alchemy";
-import { Worker, Vite } from "alchemy/cloudflare";
+import { Worker } from "alchemy/cloudflare";
 import { GitHubComment } from "alchemy/github";
 import { CloudflareStateStore } from "alchemy/state";
 
@@ -7,12 +7,11 @@ const app = await alchemy("my-app", {
   stateStore: (scope) => new CloudflareStateStore(scope),
 });
 
-// your website may be different, we use Vite for illustration purposes
-const website = await Vite("website", {
+const worker = await Worker("worker", {
   entrypoint: "./src/worker.ts",
 });
 
-console.log(`🚀 Deployed to: https://${website.url}`);
+console.log(`🚀 Deployed to: https://${worker.url}`);
 
 if (process.env.PULL_REQUEST) {
   // if this is a PR, add a comment to the PR with the preview URL
@@ -26,7 +25,7 @@ if (process.env.PULL_REQUEST) {
 
      Your changes have been deployed to a preview environment:
 
-     **🌐 Website:** ${website.url}
+     **🌐 Endpoint:** ${worker.url}
 
      Built from commit ${process.env.GITHUB_SHA?.slice(0, 7)}
 
