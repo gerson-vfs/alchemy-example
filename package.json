@@ -1,0 +1,15 @@
+{
+  "name": "my-alchemy-app",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "alchemy": "^0.66.0"
+  }
+}
